@@ -123,7 +123,7 @@ class WebSocketClientConnection extends ClientConnection {
       '$host:${port ?? (options.credentials.isSecure ? 443 : 80)}';
 
   @override
-  String get scheme => "http${options.credentials.isSecure ? "s" : ""}";
+  String get scheme => "ws${options.credentials.isSecure ? "s" : ""}";
 
 /*
   void _initializeRequest(

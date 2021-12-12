@@ -1,11 +1,13 @@
 import 'package:grpc/grpc.dart';
+import 'package:grpc/grpc_connection_interface.dart';
 
-ClientChannel createChannel(String host, int port, bool secure,
+ClientChannelBase createChannel(String uri,
     {List<int>? certificates, String? authority, String? password}) {
-  return ClientChannel(host, // Your IP here or localhost
-      port: port,
+  var _uri = Uri.parse(uri);
+  return ClientChannel(_uri.host, // Your IP here or localhost
+      port: _uri.port,
       options: ChannelOptions(
-        credentials: secure
+        credentials: _uri.scheme == "https"
             ? ChannelCredentials.secure(
                 certificates: certificates,
                 authority: authority,

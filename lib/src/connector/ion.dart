@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:grpc/grpc.dart' as grpc;
+import 'package:grpc/grpc_connection_interface.dart';
 import '../signal/grpc-web/_channel.dart'
     if (dart.library.html) '../signal/grpc-web/_channel_html.dart';
 
@@ -24,9 +25,8 @@ class Connector {
     }
   }
 
-  grpc.ClientChannel grpcClientChannel() {
-    var uri = Uri.parse(_uri);
-    return createChannel(uri.host, uri.port, uri.scheme == 'https');
+  ClientChannelBase grpcClientChannel() {
+    return createChannel(_uri);
   }
 
   grpc.CallOptions callOptions() {
